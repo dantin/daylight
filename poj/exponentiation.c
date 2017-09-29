@@ -87,6 +87,7 @@ int exponent(char *str, int n, char *r, const int size)
         sprintf(n, "%d", buf[i--]);
         strcat(r, n);
     }
+    // omit tailing '0'
     nLen = strlen(r);
     for(i = nLen - 1; i > 0; --i)
         if(r[i-1] != '.' && r[i] == '0')
