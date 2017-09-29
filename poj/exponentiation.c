@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define SIZE 10
-#define MAX  100
+#define SIZE 20
+#define MAX  1000
 
 int exponent(char *s, int n, char *buf, const int size);
 
@@ -90,7 +90,7 @@ int exponent(char *str, int n, char *r, const int size)
     // omit tailing '0'
     nLen = strlen(r);
     for(i = nLen - 1; i > 0; --i)
-        if(r[i-1] != '.' && r[i] == '0')
+        if(r[i] == '0')
         {
             r[i] = 0;
         }
@@ -98,6 +98,7 @@ int exponent(char *str, int n, char *r, const int size)
         {
             break;
         }
+    if(r[i] == '.') r[i] = 0;
 
     return 0;
 }
