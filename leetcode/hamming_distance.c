@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 int hammingDistance(int x, int y)
 {
     int d = 0, xor = x ^ y;
