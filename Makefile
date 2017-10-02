@@ -1,4 +1,4 @@
-OOT := $(shell dirname `pwd`)
+ROOT := $(shell dirname `pwd`)
 
 vet:
 	find $(ROOT) \( -iname "*.cpp" -o -iname "*.c" -o -iname "*.h" \) -print0 | \
