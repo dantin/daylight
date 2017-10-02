@@ -1,7 +1,8 @@
 /**
  * Definition for a binary tree node
  */
-struct TreeNode {
+struct TreeNode
+{
     int val;
     struct TreeNode *left;
     struct TreeNode *right;
