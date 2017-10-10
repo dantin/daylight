@@ -1,16 +1,18 @@
 #include <stdio.h>
 
-#define SIZE 7
+#define SIZE 100000
 #define LINE  50
 #define SYMBOL 255
+#define TIMES 6
 
 void init_symbol_table(char *symboles);
 
 int main(int argc, char *argv[])
 {
-    int i, n;
+    int i, j, n, times;
     char line[LINE];
     char symbolTable[SYMBOL];
+    int phones[SIZE];
 
     init_symbol_table(symbolTable);
 
@@ -18,8 +20,24 @@ int main(int argc, char *argv[])
     for(i = 0; i < n; ++i)
     {
         scanf("%s", &line);
+        phones[i] = 0;
 
-        printf("%s\n", line);
+        times = TIMES;
+        for(j = 0; j < LINE; ++j)
+        {
+            if((line[j] >= 'A' && line[j] <= 'Z') || (line[j] >= '0' && line[j] <= '9'))
+            {
+                phones[i] = phones[i] * 10 + symbolTable[line[j]];
+                --times;
+                if(times < 0)
+                    break;
+            }
+        }
+    }
+
+    for(i = 0; i < n; ++i)
+    {
+        printf("%d\n", phones[i]);
     }
 
     return 0;
