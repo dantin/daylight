@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #define SIZE 100000
-#define LINE  50
+#define LINE  51
 #define SYMBOL 255
 #define TIMES 6
 
@@ -9,6 +9,7 @@ void init_symbol_table(char *symboles);
 void heap_sort(int source[], int size);
 void max_heap(int source[], int size);
 void max_heapify(int source[], int i, int size);
+void print_phone(int phone, int freq);
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,9 @@ int main(int argc, char *argv[])
     char line[LINE];
     char symbolTable[SYMBOL];
     int phones[SIZE];
+
+    int freq = 1;
+    int dirty = 0;
 
     init_symbol_table(symbolTable);
 
@@ -37,11 +41,33 @@ int main(int argc, char *argv[])
             }
         }
     }
-     heap_sort(phones, n);
+    heap_sort(phones, n);
 
-    for(i = 0; i < n; ++i)
+    for(i = 0; i < n - 1; ++i)
     {
-        printf("%d\n", phones[i]);
+        if(phones[i] == phones[i+1])
+        {
+            ++freq;
+        }
+        else
+        {
+            if(freq >= 2)
+            {
+                print_phone(phones[i], freq);
+                freq = 1;
+                dirty = 1;
+            }
+        }
+    }
+    if(freq >= 2)
+    {
+        print_phone(phones[i], freq);
+        freq = 1;
+        dirty = 1;
+    }
+    if(dirty == 0)
+    {
+        printf("No duplicates.");
     }
 
     return 0;
@@ -107,7 +133,9 @@ void max_heapify(int source[], int i, int size)
     if(left < size && source[left] > source[i])
     {
         larget = left;
-    } else {
+    }
+    else
+    {
         larget = i;
     }
     if(right < size && source[right] > source[larget])
@@ -124,4 +152,9 @@ void max_heapify(int source[], int i, int size)
 
         max_heapify(source, larget, size);
     }
+}
+
+void print_phone(int phone, int freq)
+{
+    printf("%03ld-%04ld %d\n", phone/ 10000, phone%10000, freq);
 }
