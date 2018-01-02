@@ -8,6 +8,7 @@ public:
     int ans = 0;
     while (x) {
       int t = ans * 10 + x % 10;
+      // check to make sure overflow conditions.
       if (t/10 != ans) {
         return 0;
       }
