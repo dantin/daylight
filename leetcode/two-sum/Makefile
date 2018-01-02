@@ -1,4 +1,4 @@
-CC  := g++
+CC  := clang++ -std=c++11 -stdlib=libc++
 BIN := two_sum
 
 .PHONY: clean
