@@ -20,33 +20,29 @@ public:
   vector<int> twoSum(vector<int>& numbers, int target) {
     vector<Node> elements;
 
-    for (int i = 0; i < numbers.size(); i++)
-      {
-        elements.push_back(Node(numbers[i], i));
-      }
+    for (int i = 0; i < numbers.size(); i++) {
+      elements.push_back(Node(numbers[i], i));
+    }
 
     sort(elements.begin(), elements.end(), compare);
 
     int start = 0, end = numbers.size() - 1;
     vector<int> result;
 
-    while (start < end)
-      {
-        int sum = elements[start].val + elements[end].val;
-        if (sum == target)
-          {
-            result.push_back(elements[start].index + 1);
-            if (elements[start].index < elements[end].index)
-              result.push_back(elements[end].index + 1);
-            else
-              result.insert(result.begin(), elements[end].index+1);
-            break;
-          }
-        else if (sum > target)
-          end--;
+    while (start < end) {
+      int sum = elements[start].val + elements[end].val;
+      if (sum == target) {
+        result.push_back(elements[start].index + 1);
+        if (elements[start].index < elements[end].index)
+          result.push_back(elements[end].index + 1);
         else
-          start++;
-      }
+          result.insert(result.begin(), elements[end].index+1);
+        break;
+      } else if (sum > target)
+        end--;
+      else
+        start++;
+    }
 
     return result;
   }
