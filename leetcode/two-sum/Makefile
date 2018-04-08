@@ -18,3 +18,4 @@ clean:
 
 run: build
 	@./two_sum < data/input
+	@./two_sum_2 < data/input
