@@ -1,3 +1,4 @@
+// version 1.0 2018-05-23
 #include <iostream>
 #include <stack>
 #include <vector>
