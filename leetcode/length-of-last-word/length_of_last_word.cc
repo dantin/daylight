@@ -1,3 +1,4 @@
+// version: 1.0 2018-05-24
 #include <iostream>
 
 using namespace std;

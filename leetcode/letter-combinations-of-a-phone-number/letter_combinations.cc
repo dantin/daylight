@@ -12,6 +12,9 @@ public:
       vector<string> set;
       string seq;
 
+      // ignore empty input in a quick and dirty way.
+      if (digits.size() == 0) return set;
+
       generate(trans, digits, 0, seq, set);
 
       return set;
