@@ -1,5 +1,7 @@
-CC  := clang++ -std=c++11 -stdlib=libc++
-BIN := two_sum two_sum_2
+CC  := clang++ -std=c++11 -stdlib=libstdc++
+GCC := gcc -O2
+
+BIN := scc sc
 
 .PHONY: clean
 
@@ -7,15 +9,20 @@ default: build
 
 build: $(BIN)
 
-two_sum: two_sum.cc
-	@$(CC) -o two_sum two_sum.cc
+sc: two_sum.c
+	@$(GCC) -o sc two_sum.c
 
-two_sum_2: two_sum_2.cc
-	@$(CC) -o two_sum_2 two_sum_2.cc
+scc: two_sum.cc
+	@$(CC) -o scc two_sum.cc
+
+
+scc2: two_sum_2.cc
+	@$(CC) -o scc2 two_sum_2.cc
 
 clean:
 	@rm -rf *~ $(BIN)
 
 run: build
-	@./two_sum < data/input
-	@./two_sum_2 < data/input
+	@./sc
+	@./scc < data/input
+	@#./scc_2 < data/input
