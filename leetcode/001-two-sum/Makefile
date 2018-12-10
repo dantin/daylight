@@ -21,7 +21,6 @@ scc2: two_sum_2.cc
 
 .PHONY: clean
 clean:
-	@echo $(BIN)
 	@rm -rf *~ $(BIN)
 
 .PHONY: run
