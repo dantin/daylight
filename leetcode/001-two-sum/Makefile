@@ -1,9 +1,10 @@
+
+SOURCE_DIR := $(shell pwd)
+
 CC  := clang++ -std=c++11 -stdlib=libstdc++
 GCC := gcc -O2
 
 BIN := scc sc
-
-.PHONY: clean
 
 default: build
 
@@ -15,13 +16,14 @@ sc: two_sum.c
 scc: two_sum.cc
 	@$(CC) -o scc two_sum.cc
 
-
 scc2: two_sum_2.cc
 	@$(CC) -o scc2 two_sum_2.cc
 
+.PHONY: clean
 clean:
 	@rm -rf *~ $(BIN)
 
+.PHONY: run
 run: build
 	@./sc
 	@./scc < data/input
