@@ -6,7 +6,9 @@ DEFAULT: build
 .PHONY: build
 build:
 	@cd $(SOURCE_DIR)/001-two-sum; make
+	@cd $(SOURCE_DIR)/002-add-two-numbers; make
 
 .PHONY: clean
 clean:
 	@cd $(SOURCE_DIR)/001-two-sum; make clean
+	@cd $(SOURCE_DIR)/002-add-two-numbers; make clean
