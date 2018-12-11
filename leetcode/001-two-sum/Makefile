@@ -1,23 +1,23 @@
 
 SOURCE_DIR := $(shell pwd)
 
-CC  := clang++ -std=c++11 -stdlib=libstdc++
-GCC := gcc -O2
+CC := clang++ -std=c++11 -stdlib=libstdc++
+C  := gcc -O2
 
-BIN := scc sc
+BIN := solution_cc solution_c
 
 default: build
 
 build: $(BIN)
 
-sc: two_sum.c
-	@$(GCC) -o sc two_sum.c
+solution_c: two_sum.c
+	@$(C) -o solution_c two_sum.c
 
-scc: two_sum.cc
-	@$(CC) -o scc two_sum.cc
+solution_cc: two_sum.cc
+	@$(CC) -o solution_cc two_sum.cc
 
-scc2: two_sum_2.cc
-	@$(CC) -o scc2 two_sum_2.cc
+#scc2: two_sum_2.cc
+	#@$(CC) -o scc2 two_sum_2.cc
 
 .PHONY: clean
 clean:
@@ -25,6 +25,6 @@ clean:
 
 .PHONY: run
 run: build
-	@./sc
-	@./scc < data/input
+	@./solution_c
+	@./solution_cc < data/input
 	@#./scc_2 < data/input
