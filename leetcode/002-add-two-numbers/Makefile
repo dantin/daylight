@@ -1,19 +1,21 @@
 SOURCE_DIR := $(shell pwd)
+SOURCES    := $(shell find $(SOURCE_DIR) -name 'solution.*' | grep -vE '.py' | grep -vE '.git')
 
-CC  := clang++ -std=c++11 -stdlib=libstdc++
-GCC := gcc -O2
+CC := clang++ -std=c++11 -stdlib=libstdc++
+C  := gcc -O2
 
-BIN := solution_cc solution_c
+BIN := $(subst .,_,$(notdir $(SOURCES)))
 
 default: build
 
 build: $(BIN)
+	@echo "$(BIN) done!"
 
-solution_cc: add_two_numbers.cc
-	@$(CC) -o solution_cc add_two_numbers.cc
+solution_c: solution.c
+	@$(C) $< -o $@
 
-solution_c: add_two_numbers.cc
-	@$(GCC) -o solution_c add_two_numbers.c
+solution_cc: solution.cc
+	@$(CC) $< -o $@
 
 .PHONY: clean
 clean:
