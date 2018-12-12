@@ -1,14 +1,21 @@
 
 SOURCE_DIR := $(shell pwd)
 
+PROBLEMS := \
+	001-two-sum \
+	002-add-two-numbers \
+	003-longest-substring-without-repeat
+
 DEFAULT: build
 
 .PHONY: build
 build:
-	@cd $(SOURCE_DIR)/001-two-sum; make
-	@cd $(SOURCE_DIR)/002-add-two-numbers; make
+	@for problem in $(PROBLEMS) ; do \
+		cd $(SOURCE_DIR)/$$problem ; make ; \
+	done
 
 .PHONY: clean
 clean:
-	@cd $(SOURCE_DIR)/001-two-sum; make clean
-	@cd $(SOURCE_DIR)/002-add-two-numbers; make clean
+	@for problem in $(PROBLEMS) ; do \
+		cd $(SOURCE_DIR)/$$problem ; make clean; \
+	done
