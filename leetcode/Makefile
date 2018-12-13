@@ -1,11 +1,7 @@
 
 SOURCE_DIR := $(shell pwd)
 
-PROBLEMS := \
-	001-two-sum \
-	002-add-two-numbers \
-	003-longest-substring-without-repeat \
-	004-median-of-two-sorted-array
+PROBLEMS := $(sort $(notdir $(shell find $(SOURCE_DIR) -maxdepth 1 -type d -exec basename \{\} \;| egrep '[0-9]{3}-*')))
 
 DEFAULT: build
 
