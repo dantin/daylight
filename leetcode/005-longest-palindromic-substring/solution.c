@@ -90,8 +90,9 @@ int main(int argc, const char *argv[])
 {
     int i;
     char *inputs[] = {"babad", "cbbd"};
+    int len = sizeof(inputs) / sizeof(char *);
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < len; i++) {
         printf("%s\n%s\n", inputs[i], longest_palindrom(inputs[i]));
     }
 
