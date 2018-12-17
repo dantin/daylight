@@ -6,7 +6,7 @@
 #define PAL_BUFFER_SIZE 2000
 #define PAL_PADBUF_SIZE (PAL_BUFFER_SIZE + (PAL_BUFFER_SIZE / 2))
 
-#define PAL_CHAR_END    '\0'
+#define PAL_CHAR_EOL    '\0'
 #define PAL_CHAR_DOLLAR '$'
 #define PAL_CHAR_POND   '#'
 
@@ -18,18 +18,19 @@ inline int min(int lhs, int rhs)
 int manacher(char *s, char *output)
 {
     int i, j;
-    char s2[PAL_PADBUF_SIZE] = { PAL_CHAR_END };
+    char s2[PAL_PADBUF_SIZE] = { PAL_CHAR_EOL };
 
     s2[0] = PAL_CHAR_DOLLAR;
-    for (i = 0; s[i] != PAL_CHAR_END; i++) {
+    for (i = 0; s[i] != PAL_CHAR_EOL; i++) {
         s2[(i<<1)+1] = PAL_CHAR_POND;
         s2[(i<<1)+2] = s[i];
     }
     s2[(i<<1)+1] = PAL_CHAR_POND;
     int len = (i<<1)+2;
-    s2[len] = PAL_CHAR_END;
+    s2[len] = PAL_CHAR_EOL;
 
     int p[PAL_PADBUF_SIZE] = { 0 };
+
     int id = 0;      // center index of palindrom.
     int limit = 0;   // right side of max palindrom.
     int max_len = 0; // length of max palindrom.
@@ -67,7 +68,6 @@ int manacher(char *s, char *output)
 
 char *longest_palindrom(char *s)
 {
-    int i;
     if (s == NULL) {
         return NULL;
     }
@@ -81,7 +81,7 @@ char *longest_palindrom(char *s)
     memset(palindrom, 0, sizeof(palindrom));
 
     int size = manacher(s, palindrom);
-    palindrom[size] = PAL_CHAR_END;
+    palindrom[size] = PAL_CHAR_EOL;
 
     return palindrom;
 }
