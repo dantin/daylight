@@ -17,7 +17,7 @@ char *convert(char *s, int rows)
     int row;
 
     for (row = 0; row < rows; row++) {
-        int interval1 = rows + (rows-2) - row*2;
+        int interval1 = rows + (rows-2) - row * 2;
         int interval2 = row * 2;
         int flag = 0;
         int i = row;
