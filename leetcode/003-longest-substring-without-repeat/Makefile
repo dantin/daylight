@@ -1,4 +1,3 @@
-SOURCE_DIR := $(shell pwd)
-ROOT_DIR   := $(shell dirname $(SOURCE_DIR))
+ROOT_DIR   := $(shell dirname `pwd`)
 
 include $(ROOT_DIR)/makefile.include
