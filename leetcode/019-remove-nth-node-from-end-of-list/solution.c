@@ -28,20 +28,24 @@ struct ListNode *remove_nth_from_end(struct ListNode *head, int n)
     dummy.next = head;
     p = prev = &dummy;
 
+    // move `p` n-1 time from head.
     while (n-- > 0) {
         p = p->next;
     }
 
+    // `prev` is the previous node of  nth node from end.
     while (p->next != NULL) {
         p = p->next;
         prev = prev->next;
     }
 
+    // `tmp` is the nth node from end.
     struct ListNode *tmp = prev->next;
     prev->next = tmp->next;
     if (tmp == head) {
         head = tmp->next;
     }
+    free(tmp);
 
     return head;
 }
