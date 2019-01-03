@@ -7,6 +7,20 @@ struct ListNode {
     struct ListNode *next;
 };
 
+void print_list(struct ListNode *list)
+{
+    struct ListNode *p = list;
+
+    while (p != NULL) {
+        if (p != list) {
+            printf(" -> %d", p->val);
+        } else {
+            printf("%d", p->val);
+        }
+        p = p->next;
+    }
+}
+
 struct ListNode *make_list(const char *digits)
 {
     struct ListNode dummy, *prev;
@@ -36,7 +50,7 @@ void display(struct ListNode *list)
         list = list->next;
     }
 
-    printf("%d\n", sum);
+    printf("%d", sum);
 }
 
 struct ListNode* add_two_numbers(struct ListNode* l1, struct ListNode* l2)
@@ -79,9 +93,12 @@ int main(int argc, const char *argv[])
     struct ListNode *l2 = make_list(nums[1]);
     struct ListNode *res = add_two_numbers(l1, l2);
 
-    display(l1);
-    display(l2);
-    display(res);
+    printf(" Input: ("); print_list(l1);
+    printf(") + ("); print_list(l2); printf(")\n");
+    printf(" Output: "); print_list(res); putchar('\n');
+
+    printf(" Explanation: "); display(l1); printf(" + ");
+    display(l2); printf(" = "); display(res); putchar('\n');
 
     return 0;
 }
