@@ -54,7 +54,7 @@ static int * two_sum(int *nums, int numsSize, int target)
     return NULL;
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, const char **argv)
 {
     int nums[] = { 2, 7, 11, 15 };
     int len = sizeof(nums) /sizeof(*nums);
@@ -71,5 +71,5 @@ int main(int argc, const char *argv[])
         printf(" Not found\n");
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

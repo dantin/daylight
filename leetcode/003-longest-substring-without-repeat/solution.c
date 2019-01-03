@@ -29,7 +29,7 @@ static int length_of_longest_substring(const unsigned char *s)
     return max_len;
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, const char **argv)
 {
     char *s[] = {"abcabcbb", "bbbbb", "pwwkew"};
     int i, len = sizeof(s) / sizeof(char *);
@@ -38,5 +38,5 @@ int main(int argc, const char *argv[])
         printf("\n Input: %s\n Output: %d\n", s[i], length_of_longest_substring((const unsigned char *)s[i]));
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

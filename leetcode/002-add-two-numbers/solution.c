@@ -85,7 +85,7 @@ struct ListNode* add_two_numbers(struct ListNode* l1, struct ListNode* l2)
     return dummy.next;
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, const char **argv)
 {
     char *nums[] = {"342", "465"};
 
@@ -100,5 +100,5 @@ int main(int argc, const char *argv[])
     printf(" Explanation: "); display(l1); printf(" + ");
     display(l2); printf(" = "); display(res); putchar('\n');
 
-    return 0;
+    return EXIT_SUCCESS;
 }
