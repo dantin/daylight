@@ -21,7 +21,6 @@ static int * two_sum(int *nums, int numsSize, int target)
     }
     qsort(objs, numsSize, sizeof(*objs), compare);
 
-    int count = 0;
     int *results = malloc(2 * sizeof(int));
     i = 0;
     j = numsSize -1;
