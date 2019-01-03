@@ -6,6 +6,21 @@ struct object {
     int index;
 };
 
+void print_array(int *array, int len)
+{
+    int i;
+
+    putchar('[');
+    for (i = 0; i < len; i++) {
+        if (i == 0) {
+            printf("%d", array[i]);
+        } else {
+            printf(", %d", array[i]);
+        }
+    }
+    putchar(']');
+}
+
 static int compare(const void *lhs, const void *rhs)
 {
     return ((struct object *) lhs)->val - ((struct object *) rhs)->val;
@@ -41,16 +56,19 @@ static int * two_sum(int *nums, int numsSize, int target)
 
 int main(int argc, const char *argv[])
 {
-    int nums[] = { 3, 2, 3 };
-    int count = sizeof(nums) /sizeof(*nums);
-    int target = 6;
+    int nums[] = { 2, 7, 11, 15 };
+    int len = sizeof(nums) /sizeof(*nums);
+    int target = 9;
 
-    int *indexes = two_sum(nums, count, target);
 
+    printf(" Given nums: "); print_array(nums, len);
+    printf(", target = %d\n", target);
+
+    int *indexes = two_sum(nums, len, target);
     if (indexes != NULL) {
-        printf("%d %d\n", indexes[0], indexes[1]);
+        printf(" [%d, %d]\n", indexes[0], indexes[1]);
     } else {
-        printf("Not found\n");
+        printf(" Not found\n");
     }
 
     return 0;
