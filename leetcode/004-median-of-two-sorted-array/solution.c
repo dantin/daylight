@@ -1,6 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct object {
+    int *nums1;
+    int n1;
+    int *nums2;
+    int n2;
+};
+
+void print_array(int *array, int len)
+{
+    int i;
+
+    putchar('[');
+    for (i = 0; i < len; i++) {
+        if (i == 0) {
+            printf("%d", array[i]);
+        } else {
+            printf(", %d", array[i]);
+        }
+    }
+    putchar(']');
+}
+
 double find_kth(int a[], int alen, int b[], int blen, int k)
 {
     // Always assume that alen is equal or smaller than blen
@@ -42,15 +64,30 @@ double find_median_sorted_arrays(int *nums1, int nums1Size, int *nums2, int nums
     }
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, const char **argv)
 {
-    int r1[] = {1};
-    int r2[] = {2};
+    int arr1[] = {1, 3}, len1 = sizeof(arr1) / sizeof(int);
+    int arr2[] = {2},    len2 = sizeof(arr2) / sizeof(int);
+    int arr3[] = {1, 2}, len3 = sizeof(arr3) / sizeof(int);
+    int arr4[] = {3, 4}, len4 = sizeof(arr4) / sizeof(int);
 
-    int n1 = sizeof(r1)/sizeof(r1[0]);
-    int n2 = sizeof(r2)/sizeof(r2[0]);
+    struct object inputs[] = {
+        {.nums1 = arr1, .n1 = len1, .nums2 = arr2, .n2 = len2},
+        {.nums1 = arr3, .n1 = len3, .nums2 = arr4, .n2 = len4},
+    };
+    int i, len = sizeof(inputs)/sizeof(struct object);
 
-    printf("Median is 1.5 = %f\n", find_median_sorted_arrays(r1, n1, r2, n2));
+    for (i = 0; i < len; i++) {
+        int *nums1 = inputs[i].nums1;
+        int *nums2 = inputs[i].nums2;
+        int n1 = inputs[i].n1;
+        int n2 = inputs[i].n2;
 
-    return 0;
+        printf("\n nums1: "); print_array(nums1, n1); putchar('\n');
+        printf(" nums2: "); print_array(nums2, n2); putchar('\n');
+
+        printf(" Median = %f\n", find_median_sorted_arrays(nums1, n1, nums2, n2));
+    }
+
+    return EXIT_SUCCESS;
 }
