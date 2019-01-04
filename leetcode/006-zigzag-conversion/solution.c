@@ -46,7 +46,7 @@ int main(int argc, char **argv)
     int len = sizeof(arr) / sizeof(struct object);
 
     for (i = 0; i < len; i++) {
-        printf("%s\n", convert(arr[i].s, arr[i].rows));
+        printf("\n Input: %s\n Output: %s\n", arr[i].s, convert(arr[i].s, arr[i].rows));
     }
 
     return 0;

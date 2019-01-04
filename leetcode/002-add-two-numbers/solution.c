@@ -2,23 +2,66 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Definition for single-linked list. */
 struct ListNode {
     int val;
     struct ListNode *next;
 };
 
-static struct ListNode* add_two_numbers(struct ListNode* l1, struct ListNode* l2)
+void print_list(struct ListNode *list)
+{
+    struct ListNode *p = list;
+
+    while (p != NULL) {
+        if (p != list) {
+            printf(" -> %d", p->val);
+        } else {
+            printf("%d", p->val);
+        }
+        p = p->next;
+    }
+}
+
+struct ListNode *make_list(const char *digits)
+{
+    struct ListNode dummy, *prev;
+    int len = strlen(digits);
+    const char *c = digits + len - 1;
+
+    dummy.next = NULL;
+    prev = &dummy;
+    while (len-- > 0) {
+        struct ListNode *p = malloc(sizeof(*p));
+        p->val = *c-- - '0';
+        p->next = NULL;
+        prev->next = p;
+        prev = p;
+    }
+
+    return dummy.next;
+}
+
+void display(struct ListNode *list)
+{
+    int sum = 0, factor = 1;
+
+    while (list != NULL) {
+        sum += list->val * factor;
+        factor *= 10;
+        list = list->next;
+    }
+
+    printf("%d", sum);
+}
+
+struct ListNode* add_two_numbers(struct ListNode* l1, struct ListNode* l2)
 {
     int carry = 0;
-    int first = 1;
-    struct ListNode *res = NULL;
-    struct ListNode *p = NULL;
-    struct ListNode *prev = p;
+    struct ListNode dummy, *prev;
 
+    dummy.next = NULL;
+    prev = &dummy;
     while (l1 != NULL || l2 != NULL || carry) {
         int sum = 0;
-        int last_carry = carry;
 
         if (l1 != NULL) {
             sum += l1->val;
@@ -28,84 +71,34 @@ static struct ListNode* add_two_numbers(struct ListNode* l1, struct ListNode* l2
             sum += l2->val;
             l2 = l2->next;
         }
-        if (sum >= 10) {
-            sum -= 10;
-            carry = 1;
-        } else {
-            carry = 0;
-        }
+        sum += carry;
 
-        p = malloc(sizeof(*p));
-        if (first) {
-            res = p;
-            first = 0;
-        }
-        p->val = sum + last_carry;
-        if (p->val >= 10) {
-            p->val -= 10;
-            carry = 1;
-        }
+        struct ListNode *p = malloc(sizeof(*p));
+        p->val = sum % 10;
         p->next = NULL;
-        if (prev != NULL) {
-            prev->next = p;
-        }
+        prev->next = p;
         prev = p;
+
+        carry = sum / 10;
     }
 
-    return res;
+    return dummy.next;
 }
 
-static struct ListNode *build(const char *digits)
+int main(int argc, const char **argv)
 {
-    struct ListNode *res, *p, *prev;
-    int first = 1;
-    int len = strlen(digits);
-    const char *c = digits + len - 1;
+    char *nums[] = {"342", "465"};
 
-    prev = NULL;
-    while (len-- > 0) {
-        p = malloc(sizeof(*p));
-        if (first) {
-            first = 0;
-            res = p;
-        }
-        p->val = *c-- - '0';
-        p->next = NULL;
-        if (prev != NULL) {
-            prev->next = p;
-        }
-        prev = p;
-    }
-
-    return res;
-}
-
-static void show(struct ListNode *ln)
-{
-    int sum = 0, factor = 1;
-
-    while (ln != NULL) {
-        sum += ln->val * factor;
-        factor *= 10;
-        ln = ln->next;
-    }
-    printf("%d\n", sum);
-}
-
-int main(int argc, const char *argv[])
-{
-    if (argc < 3) {
-        fprintf(stderr, "Usage: ./dist n1 n2\n");
-        exit(-1);
-    }
-
-    struct ListNode *l1 = build(argv[1]);
-    struct ListNode *l2 = build(argv[2]);
+    struct ListNode *l1 = make_list(nums[0]);
+    struct ListNode *l2 = make_list(nums[1]);
     struct ListNode *res = add_two_numbers(l1, l2);
 
-    show(l1);
-    show(l2);
-    show(res);
+    printf(" Input: ("); print_list(l1);
+    printf(") + ("); print_list(l2); printf(")\n");
+    printf(" Output: "); print_list(res); putchar('\n');
 
-    return 0;
+    printf(" Explanation: "); display(l1); printf(" + ");
+    display(l2); printf(" = "); display(res); putchar('\n');
+
+    return EXIT_SUCCESS;
 }

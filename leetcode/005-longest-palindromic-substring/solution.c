@@ -78,7 +78,7 @@ char *longest_palindrom(char *s)
     }
 
     char *palindrom = malloc(PAL_BUFFER_SIZE);
-    memset(palindrom, 0, sizeof(palindrom));
+    memset(palindrom, 0, PAL_BUFFER_SIZE * sizeof(char));
 
     int size = manacher(s, palindrom);
     palindrom[size] = PAL_CHAR_EOL;
@@ -86,14 +86,13 @@ char *longest_palindrom(char *s)
     return palindrom;
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, const char **argv)
 {
-    int i;
     char *inputs[] = {"babad", "cbbd"};
-    int len = sizeof(inputs) / sizeof(char *);
+    int i, len = sizeof(inputs) / sizeof(char *);
 
     for (i = 0; i < len; i++) {
-        printf("%s\n%s\n", inputs[i], longest_palindrom(inputs[i]));
+        printf("\n Input: %s\n Output: %s\n", inputs[i], longest_palindrom(inputs[i]));
     }
 
     return 0;

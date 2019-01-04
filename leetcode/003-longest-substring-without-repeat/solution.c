@@ -2,41 +2,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-static int length_of_longest_substring(const char *s)
+static int length_of_longest_substring(const unsigned char *s)
 {
     int offset[128];
     int max_len = 0;
     int len = 0;
-    int index = 0;
+    int idx = 0;
 
     memset(offset, 0xff, sizeof(offset));
     while (*s != '\0') {
         if (offset[*s] == -1) {
             len++;
         } else {
-            if (index - offset[*s] > len) {
+            if (idx - offset[*s] > len) {
                 len++;
             } else {
-                len = index - offset[*s];
+                len = idx - offset[*s];
             }
         }
         if (len > max_len) {
             max_len = len;
         }
-        offset[*s++] = index++;
+        offset[*s++] = idx++;
     }
 
     return max_len;
 }
 
-int main(int argc, const char *argv[])
+int main(int argc, const char **argv)
 {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: ./solution_c string\n");
-        exit(-1);
+    char *s[] = {"abcabcbb", "bbbbb", "pwwkew"};
+    int i, len = sizeof(s) / sizeof(char *);
+
+    for (i = 0; i < len; i++) {
+        printf("\n Input: %s\n Output: %d\n", s[i], length_of_longest_substring((const unsigned char *)s[i]));
     }
 
-    printf("%d\n", length_of_longest_substring(argv[1]));
-
-    return 0;
+    return EXIT_SUCCESS;
 }
