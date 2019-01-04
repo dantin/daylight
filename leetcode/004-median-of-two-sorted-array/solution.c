@@ -64,7 +64,7 @@ double find_median_sorted_arrays(int *nums1, int nums1Size, int *nums2, int nums
     }
 }
 
-int main(int argc, const char **argv)
+int main(int argc, char **argv)
 {
     int arr1[] = {1, 3}, len1 = sizeof(arr1) / sizeof(int);
     int arr2[] = {2},    len2 = sizeof(arr2) / sizeof(int);
