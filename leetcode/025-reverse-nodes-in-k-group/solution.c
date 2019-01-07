@@ -80,6 +80,7 @@ int main(int argc, char **argv)
     for (i = 0; i < len; i++) {
         struct ListNode *list = make_list(inputs[i].array, inputs[i].len);
         printf("\n Input: "); print_list(list);
+        printf(" k: %d\n", inputs[i].k);
         struct ListNode *reversed = reverse_k_group(list, inputs[i].k);
         printf(" Output: "); print_list(reversed);
     }
