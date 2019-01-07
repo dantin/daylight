@@ -66,10 +66,8 @@ struct ListNode *swap_pairs(struct ListNode *head)
 
 int main(int argc, char **argv)
 {
-    int arr1[] = {1, 2, 3, 4};
-    int len1 = sizeof(arr1) / sizeof(int);
-    int arr2[] = {1, 2, 3, 4, 5};
-    int len2 = sizeof(arr2) / sizeof(int);
+    int arr1[] = {1, 2, 3, 4},    len1 = sizeof(arr1) / sizeof(int);
+    int arr2[] = {1, 2, 3, 4, 5}, len2 = sizeof(arr2) / sizeof(int);
 
     struct object inputs[] = {
         {.array = arr1, .len = len1},
