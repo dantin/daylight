@@ -23,15 +23,17 @@ void print_array(int *array, int size)
 
 int remove_duplicates(int *array, int size)
 {
-    if (size == 0) {
-        return 0;
+    if (size <= 1) {
+        return size;
     }
-    int i, count= 1, val = array[0];
-    for (i = 1; i < size; i++) {
-        if (array[i] != val) {
-            array[count++] = array[i];
-            val = array[i];
+
+    int i = 0, j, count= 1;
+    while (i < size) {
+        for (j = i + 1; j < size && array[i] == array[j]; j++) {}
+        if (j < size) {
+            array[count++] = array[j];
         }
+        i = j;
     }
     return count;
 }
