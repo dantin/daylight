@@ -12,7 +12,7 @@ int divide(int dividend, int divisor)
     int sign = ((dividend ^ divisor) < 0) ? -1 : 1;
     unsigned int dvd = dividend > 0 ? dividend : -dividend;
     unsigned int dvs = divisor > 0 ? divisor : -divisor;
-    unsigned int bit_num[33];
+    unsigned int bit_num[33]; // bit_num store multiple of divisor.
     unsigned int i = 0;
     long long d = dvs;
 
@@ -32,6 +32,7 @@ int divide(int dividend, int divisor)
         }
     }
 
+    // check integer overflow or not.
     if (result > INT_MAX && sign > 0) {
         return INT_MAX;
     }
