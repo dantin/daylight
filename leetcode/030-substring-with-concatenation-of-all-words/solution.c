@@ -188,8 +188,7 @@ int main(int argc, char **argv)
     int i, count, len = sizeof(inputs) / sizeof(struct object);
 
     for (i = 0; i < len; i++) {
-        char *s = inputs[i].s;
-        char **words = inputs[i].words;
+        char *s  = inputs[i].s, **words = inputs[i].words;
         int size = inputs[i].size;
 
         printf("\n s = %s\n", s);
