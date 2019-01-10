@@ -57,7 +57,6 @@ void next_permutation(int *nums, int nums_size)
     int *p = nums + nums_size - 1;
     int *q = p;
 
-    // find the 1st peek backward.
     while (p != nums && *(p - 1) >= *p) {
         p--;
     }
