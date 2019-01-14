@@ -34,10 +34,7 @@ int binary_search(int *nums, int size, int target)
             high = mid;
         }
     }
-    if (high == size || nums[high] != target) {
-        return -1;
-    }
-    return high;
+    return nums[high] == target ? high : -1;
 }
 
 int find_pivot(int *nums, int size)
