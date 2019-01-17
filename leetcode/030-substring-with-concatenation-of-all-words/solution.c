@@ -145,7 +145,7 @@ int *find_substring(char *s, char **words, int words_size, int *return_size)
         add(words, i, heads, hash_size, freqs);
     }
 
-    int len = strlen(words[0]);
+    int len = strlen(words[0]); // all words has the same length.
     int length = len * words_size - 1;
     char *word = malloc(len + 1);
     word[len] = '\0';
