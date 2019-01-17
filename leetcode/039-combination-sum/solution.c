@@ -23,22 +23,22 @@ void print_nums(int *nums, int size)
     putchar(']');
 }
 
-void dfs(int *nums, int size, int start, int target, int *stack,
-         int len, int **results, int *column_sizes, int *count)
+void dfs(int *nums, int size, int target, int start, int *stack,
+         int top, int **results, int *column_sizes, int *count)
 {
     int i;
     if (target == 0) {
-        results[*count] = malloc(len * sizeof(int));
-        memcpy(results[*count], stack, len * sizeof(int));
-        column_sizes[*count] = len;
+        results[*count] = malloc(top * sizeof(int));
+        memcpy(results[*count], stack, top * sizeof(int));
+        column_sizes[*count] = top;
         (*count)++;
     } else if (target > 0) {
         for (i = start; i < size; i++) {
             if (i > 0 && nums[i] == nums[i-1]) {
                 continue;
             }
-            stack[len] = nums[i];
-            dfs(nums, size, i, target - nums[i], stack, len+1, results, column_sizes, count);
+            stack[top] = nums[i];
+            dfs(nums, size, target - nums[i], i, stack, top+1, results, column_sizes, count);
         }
     }
 }
@@ -46,12 +46,13 @@ void dfs(int *nums, int size, int start, int target, int *stack,
 int ** combination_sum(int *candidates, int candidates_size, int target, int **column_sizes, int *return_size)
 {
     int cap = 100;
-    int *stack = malloc(target * sizeof(int));
     int **results = malloc(cap * sizeof(int *));
+    int *stack = malloc(target * sizeof(int));
+
     *column_sizes = malloc(cap * sizeof(int *));
     *return_size = 0;
 
-    dfs(candidates, candidates_size, 0, target, stack, 0, results, *column_sizes, return_size);
+    dfs(candidates, candidates_size, target, 0, stack, 0, results, *column_sizes, return_size);
 
     return results;
 }
