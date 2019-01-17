@@ -45,7 +45,7 @@ void dfs(int *nums, int size, int target, int start, int *stack,
 
 int ** combination_sum(int *candidates, int candidates_size, int target, int **column_sizes, int *return_size)
 {
-    int cap = 100;
+    int cap = 10000;
     int **results = malloc(cap * sizeof(int *));
     int *stack = malloc(target * sizeof(int));
 
@@ -59,11 +59,13 @@ int ** combination_sum(int *candidates, int candidates_size, int target, int **c
 
 int main(int argc, char **argv)
 {
-    int nums1[] = {2, 3, 6, 7}, len1 = sizeof(nums1) / sizeof(int);
-    int nums2[] = {2, 3, 5},    len2 = sizeof(nums2) / sizeof(int);
+    int nums1[] = {2, 3, 6, 7},                   len1 = sizeof(nums1) / sizeof(int);
+    int nums2[] = {2, 3, 5},                      len2 = sizeof(nums2) / sizeof(int);
+    int nums3[] = {8, 10, 6, 3, 4, 12, 11, 5, 9}, len3 = sizeof(nums3) / sizeof(int);
     struct object inputs[] = {
         {.nums = nums1, .len = len1, .target = 7},
         {.nums = nums2, .len = len2, .target = 8},
+        {.nums = nums3, .len = len3, .target = 28},
     };
     int i, j, len = sizeof(inputs) / sizeof(struct object);
     int *column_sizes = NULL, size;
