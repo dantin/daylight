@@ -49,7 +49,6 @@ void dfs(int *nums, int size, int target, int start, int *stack, int top,
             }
         }
     }
-
 }
 
 int **combination_sum(int *candidates, int candidates_size, int target, int **column_sizes, int *return_size)
@@ -58,10 +57,11 @@ int **combination_sum(int *candidates, int candidates_size, int target, int **co
     qsort(candidates, candidates_size, sizeof(int), compare);
 
     *column_sizes = malloc(cap * sizeof(int));
+    int **results = malloc(cap * sizeof(int *));
     *return_size = 0;
 
     int *stack = malloc(target * sizeof(int));
-    int **results = malloc(cap * sizeof(int *));
+
     bool *used = malloc(candidates_size);
     memset(used, false, candidates_size);
 
