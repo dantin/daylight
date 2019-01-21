@@ -21,7 +21,7 @@ int trap(int *height, int height_size)
         return 0;
     }
 
-    int i, j, left= -1, right = -1, sum = 0;
+    int i, j, left= -1, right = -1, total = 0;
     for (i = 0; i < height_size; i++) {
         if (height[i] > 0) {
             left = i;
@@ -46,7 +46,7 @@ int trap(int *height, int height_size)
             int level = height[left] < height[right] ? height[left] : height[right];
             while (i < right) {
                 if (level > height[i]) {
-                    sum += level - height[i];
+                    total += level - height[i];
                 }
                 i++;
             }
@@ -57,7 +57,7 @@ int trap(int *height, int height_size)
         }
     }
 
-    return sum;
+    return total;
 }
 
 int main(int argc, char **argv)
