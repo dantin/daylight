@@ -2,7 +2,7 @@ SOURCE_DIR := $(shell pwd)
 SOURCES    := $(shell find $(SOURCE_DIR) -name 'solution.*' | grep -vE '.py' | grep -vE '.git')
 
 CC     := gcc
-CFLAGS := -O2 -Wall -Wshadow
+CFLAGS := -O2 -Wall -Wshadow -lm
 
 BIN := $(subst .,_,$(notdir $(SOURCES)))
 
