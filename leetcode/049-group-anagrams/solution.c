@@ -45,7 +45,7 @@ inline int BKDRHash(char *s, size_t size)
     return hash % size;
 }
 
-char *** group_anagrams(char **strs, int strs_size, int **column_sizes, int *retrun_size)
+char *** group_anagrams(char **strs, int strs_size, int **column_sizes, int *return_size)
 {
     int i, j, count = 0;
     int hash_size = strs_size;
@@ -56,9 +56,10 @@ char *** group_anagrams(char **strs, int strs_size, int **column_sizes, int *ret
         int len = strlen(strs[i]);
         words[i] = malloc(len + 1);
         strcpy(words[i], strs[i]);
+        // sort words here to make sure anagram have the same hash code.
         qsort(words[i], len, sizeof(char), compare);
         int hash = BKDRHash(words[i], hash_size);
-        // put into hashtable.
+        // find avaible hash bucket.
         for (j = hash; ht[j].num > 0 && strcmp(ht[j].word, words[i]);) {
             j = ++j % hash_size;
         }
@@ -72,6 +73,7 @@ char *** group_anagrams(char **strs, int strs_size, int **column_sizes, int *ret
     int k = 0;
     char ***lists = malloc(count * sizeof(char **));
     *column_sizes = malloc(count * sizeof(int));
+
     for (i = 0; i < hash_size; i++) {
         if (ht[i].num > 0) {
             (*column_sizes)[k] = ht[i].num;
@@ -84,7 +86,7 @@ char *** group_anagrams(char **strs, int strs_size, int **column_sizes, int *ret
         }
     }
 
-    *retrun_size = count;
+    *return_size = count;
     return lists;
 }
 
