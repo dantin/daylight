@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <assert.h>
 
 void show_board(char **board, int n)
@@ -15,11 +16,12 @@ void show_board(char **board, int n)
     }
 }
 
-inline int conflict(int *stack, int i, int j)
+inline int conflict(int *stack, int row, int col)
 {
-    int k;
-    for (k = 0; k < i; k++) {
-        if (j == stack[k] || abs(i - k) == abs(j - stack[k])) {
+    int i;
+    // check if occupied or in one line.
+    for (i = 0; i < row; i++) {
+        if (col == stack[i] || abs(row - i) == abs(col - stack[i])) {
             return 1;
         }
     }
@@ -87,12 +89,14 @@ char ***solve_n_queens(int n, int *return_size)
         return solutions;
     }
 
-    for (; ;) {
+    while (true) {
         for (; row < n; row++) {
             while (col < n) {
                 if (conflict(stack, row, col)) {
                     while(col == n - 1) {
+                        // no other position in this row, backtracking.
                         if (--row < 0) {
+                            // all solutions found!
                             free(stack);
                             *return_size = sum;
                             return solutions;
@@ -110,9 +114,11 @@ char ***solve_n_queens(int n, int *return_size)
 
         row = top(stack, n);
         if (row == n - 1) {
+            // found a new solution.
             solutions[sum++] = solution(stack,n);
         }
 
+        // move on to find if there are other solutions.
         col = pop(stack, row);
         col++;
     }
@@ -136,5 +142,6 @@ int main(int argc, char **argv)
         }
 
     }
+
     return EXIT_SUCCESS;
 }
