@@ -38,9 +38,6 @@ void print_matrix(int **matrix, int rows, int cols)
         return;
     }
 
-    if (rows < 1) {
-        printf("[]\n");
-    }
     printf("[\n%*s", indent, "");
     print_nums(matrix[0], cols);
     for (i = 1; i < rows; i++) {
