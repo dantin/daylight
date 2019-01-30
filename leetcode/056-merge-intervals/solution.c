@@ -31,6 +31,7 @@ void print_intervals(struct Interval *intervals, int size)
 int binary_search(int *nums, int size, int target)
 {
     int low = -1, high = size;
+
     while (low + 1 < high) {
         int mid = low + (high - low) / 2;
         if (target > nums[mid]) {
@@ -132,10 +133,12 @@ struct Interval *merge(struct Interval *intervals, int intervals_size, int *retu
 {
     int i, count = 0;
     struct Interval *p = NULL;
+
     for (i = 0; i < intervals_size; i++) {
         p = insert(p, count, intervals[i], &count);
     }
     *return_size = count;
+
     return p;
 }
 
