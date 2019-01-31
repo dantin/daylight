@@ -39,9 +39,8 @@ int **generate_matrix(int n)
 {
     int i;
     int **matrix = malloc(n * sizeof(int *));
-    int *nums = malloc(n * n * sizeof(int));
     for (i = 0; i < n; i++) {
-        matrix[i] = &nums[i * n];
+        matrix[i] = malloc(n * sizeof(int));
     }
 
     int direction = 0, num = 0;
