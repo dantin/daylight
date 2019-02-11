@@ -50,16 +50,19 @@ struct ListNode *rotate_right(struct ListNode *head, int k)
         return head;
     }
 
-    struct ListNode dummy;
-    struct ListNode *prev = &dummy, *last = &dummy, *p = head;
-    dummy.next = head;
     int count = k;
+    struct ListNode dummy;
+    struct ListNode *prev = &dummy;  // prev is the last node of the old list.
+    struct ListNode *last = &dummy;  // last is the last node of the new list.
+    struct ListNode *p = head;
+    
+    dummy.next = head;
     while (k > 0) {
         if (p == NULL) {
             int length = count - k;
             prev = &dummy;
             p = head;
-            k = count % length;
+            k = count % length;  // quick forward.
             if (k == 0) break;
         }
         prev = p;
