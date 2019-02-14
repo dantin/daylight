@@ -2,7 +2,8 @@ SOURCE_DIR := $(shell pwd)
 SOURCES    := $(shell find $(SOURCE_DIR) -name 'solution.*' | grep -vE '.py' | grep -vE '.git')
 
 CC     := gcc
-CFLAGS := -O2 -Wall -Wshadow -lm
+CFLAGS := -O2 -fsanitize=address -Wall -Wshadow
+LDFLAGS := -lm -fsanitize=address
 
 BIN := $(subst .,_,$(notdir $(SOURCES)))
 
@@ -12,7 +13,7 @@ build: $(BIN)
 	@echo "$(BIN) done!"
 
 solution_c: solution.c
-	@$(CC) $(CFLAGS) $< -o $@
+	@$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
 
 .PHONY: clean
 clean:
