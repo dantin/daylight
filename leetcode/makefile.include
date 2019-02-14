@@ -1,8 +1,16 @@
+# Makefile default shell is /bin/sh which doesn't source.
+SHELL := /bin/bash
+
+DEVTOOLSET_PATH := /opt/rh/devtoolset-7/
+
 SOURCE_DIR := $(shell pwd)
 SOURCES    := $(shell find $(SOURCE_DIR) -name 'solution.*' | grep -vE '.py' | grep -vE '.git')
 
 CC     := gcc
-CFLAGS := -O2 -Wall -Wshadow -lm
+# compiler flags
+CFLAGS := -O2 -fsanitize=address -Wall -Wshadow
+# linker flags
+LDFLAGS := -lm -fsanitize=address
 
 BIN := $(subst .,_,$(notdir $(SOURCES)))
 
@@ -12,7 +20,7 @@ build: $(BIN)
 	@echo "$(BIN) done!"
 
 solution_c: solution.c
-	@$(CC) $(CFLAGS) $< -o $@
+	@source $(DEVTOOLSET_PATH)/enable; $(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
 
 .PHONY: clean
 clean:
