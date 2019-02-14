@@ -28,7 +28,7 @@ int *plus_one(int *digits, int digits_size, int *return_size)
     int *result = malloc((digits_size + 1) * sizeof(int));
 
     for (i = digits_size - 1; i >= 0 || carry; i--) {
-        int n = digits[i] + carry;
+        int n = i >= 0 ? digits[i] + carry : carry;
         result[len++] = n % 10;
         carry = n / 10;
     }
@@ -64,6 +64,7 @@ int main(int argc, char **argv)
         int *ret = plus_one(nums, size, &return_size);
         printf(" Output: ");
         print_nums(ret, return_size);
+        free(ret);
     }
 
     return EXIT_SUCCESS;
