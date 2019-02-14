@@ -24,6 +24,19 @@ void print_strs(char **words, int size)
     printf("]\n");
 }
 
+/**
+ * Fill a line using <SPACE>.
+ *
+ *  line:          line placeholder.
+ *  len:           original length of line without space padding.
+ *  words:         words array.
+ *  word_lens:     words length array.
+ *  max_size:      target length after padding.
+ *  even_spaces:   average space for each word.
+ *  remain_spaces: remaining space not used.
+ *  start:         start index.
+ *  end:           end index.
+ */
 void line_fill(char *line, int len, char **words, int *word_lens, int max_size,
                int even_spaces, int remain_spaces, int start, int end)
 {
@@ -33,9 +46,11 @@ void line_fill(char *line, int len, char **words, int *word_lens, int max_size,
         memcpy(p, words[i], word_lens[i]);
         p += word_lens[i];
         if (i < end - 1) {
+            // padding space.
             for (j = 0; j < even_spaces; j++) {
                 *p++ = ' ';
             }
+            // padding eagerly.
             if (remain_spaces > 0) {
                 *p++ = ' ';
                 remain_spaces--;
@@ -50,7 +65,9 @@ void line_fill(char *line, int len, char **words, int *word_lens, int max_size,
 
 char **full_justify(char **words, int words_size, int max_width, int *return_size)
 {
-    int i, j, cap = 100, count = 0;
+    int i, cap = 100;
+    int count = 0;  // count is the length of return size.
+
     char **lines = malloc(cap * sizeof(char *));
     for (i = 0; i < cap; i++) {
         lines[i] = malloc(max_width + 1);
@@ -61,33 +78,36 @@ char **full_justify(char **words, int words_size, int max_width, int *return_siz
         word_lens[i] = strlen(words[i]);
     }
 
-    int wc = 0;
-    int len = 0;
-    int start = 0;
-    int chars = 0;
-    for (i = 0, j = 0; i < words_size; i++) {
+    int wc = 0;     // wc is the word count.
+    int len = 0;    // len is total length of words with character and space.
+    int start = 0;  // start is the first word position of current line.
+    int chars = 0;  // chars is total length of words with character only.
+    for (i = 0; i < words_size; i++) {
         if (len + word_lens[i] > max_width) {
+            // keep current word to the next loop.
+            count++;
             int even_spaces = wc == 1 ? 0 : (max_width - chars) / (wc - 1);
             int remain_spaces = wc == 1 ? 0 : (max_width - chars) % (wc - 1);
             line_fill(lines[count], len, words, word_lens, max_width, even_spaces, remain_spaces, start, i);
-            count++;
             wc = 1;
             len = word_lens[i] + 1;
             chars = word_lens[i];
             start = i;
         } else if (len + word_lens[i] == max_width) {
+            // consume it.
+            count++;
             chars += word_lens[i];
             int even_spaces = wc == 0 ? 0 : (max_width - chars) / wc;
             int remain_spaces = wc == 0 ? 0 : (max_width - chars) % wc;
             line_fill(lines[count], len, words, word_lens, max_width, even_spaces, remain_spaces, start, i + 1);
-            count++;
             wc = 0;
             len = 0;
             chars = 0;
             start = i + 1;
         } else {
             chars += word_lens[i];
-            len += word_lens[i] + 1; /* at least one space */
+            /* at least one space */
+            len += word_lens[i] + 1;
             wc++;
         }
     }
@@ -116,15 +136,18 @@ int main(int argc, char **argv)
 {
     char *words1[] = {"This", "is", "an", "example", "of", "text", "justification."};
     int len1 = sizeof(words1) / sizeof(char *);
+    int width1 = 16;
     char *words2[] = {"What", "must", "be", "acknowledgment", "shall", "be"};
     int len2 = sizeof(words2) / sizeof(char *);
+    int width2 = 16;
     char *words3[] = {"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"};
     int len3 = sizeof(words3) / sizeof(char *);
+    int width3 = 20;
 
     struct Object inputs[] = {
-        {.words = words1, .len = len1, .max_width= 16},
-        {.words = words2, .len = len2, .max_width= 16},
-        {.words = words3, .len = len3, .max_width= 20},
+        {.words = words1, .len = len1, .max_width= width1},
+        {.words = words2, .len = len2, .max_width= width2},
+        {.words = words3, .len = len3, .max_width= width3},
     };
     int i, j, return_size, len = sizeof(inputs) / sizeof(struct Object);
     int indent = 2;
