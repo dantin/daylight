@@ -15,7 +15,7 @@ char *simplify_path(char *path)
     int name_start = 1;
     while (*p != '\0') {
         if (*p == '/') {
-            if (p > path && *(p - 1) != '/' && *(p -1) != '.') {
+            if (p > path && *(p - 1) != '/' && *(p - 1) != '.') {
                 name_start = 1;
             }
         } else if (*p == '.') {
@@ -38,6 +38,7 @@ char *simplify_path(char *path)
             }
         } else {
             if (name_start && depth >= 0) {
+                // store index.
                 indexes[depth++] = p - path;
                 name_start = 0;
             }
@@ -54,7 +55,7 @@ char *simplify_path(char *path)
         for (i = 0; i < depth; i++) {
             p = path + indexes[i];
             *q++ = '/';
-            while (*p != '/') {
+            while (*p != '/' && *p != '\0') {
                 *q++ = *p++;
             }
         }
