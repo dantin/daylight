@@ -24,7 +24,9 @@ void print_nums(int *nums, int size)
 int largetst_rectangle_area(int *heights, int heights_size)
 {
     int *indexes = malloc(heights_size * sizeof(int));
+    // left margin of continus block.
     int *left = malloc(heights_size * sizeof(int));
+    // right margin of continus block.
     int *right = malloc(heights_size * sizeof(int));
 
     int i, pos = 0;
