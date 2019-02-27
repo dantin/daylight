@@ -10,11 +10,22 @@ struct Object {
     char *s2;
 };
 
+/**
+ * The recursive way.
+ *
+ *  1) break the string to two parts: 
+ *        s1[0..j]   s1[j+1..n]
+ *        s2[0..j]   s2[j+1..n]
+ *  2) then
+ *       scramble(s1[0..j], s2[0..j]) && scramble(s1[j+1..n], s2[j+1..n])
+ *     or
+ *       scramble(s1[0..j], s2[n - j - 1, n]) && scramble(s1[j+1..n], s2[0..n - j])
+ */
 bool scramble(char *s1, int low1, int high1, char *s2, int low2, int high2)
 {
     if (high1 - low1 != high2 - low2) {
         return false;
-    } else if(!memcmp(s1 + low1, s2 + low2, high1 - low1 + 1)) {
+    } else if (!memcmp(s1 + low1, s2 + low2, high1 - low1 + 1)) {
         return true;
     } else {
         int i, chr, c1[N], c2[N];
@@ -28,7 +39,7 @@ bool scramble(char *s1, int low1, int high1, char *s2, int low2, int high2)
             chr = s2[i];
             c2[chr]++;
         }
-        if (memcmp(c1, c2, N + sizeof(int))) {
+        if (memcmp(c1, c2, N * sizeof(int))) {
             return false;
         } else {
             int len = high1 - low1 + 1;
@@ -38,7 +49,7 @@ bool scramble(char *s1, int low1, int high1, char *s2, int low2, int high2)
                     return true;
                 }
                 if (scramble(s1, low1, low1 + i - 1, s2, high2 - i + 1, high2) &&
-                    scramble(s1, low1 + i, high1, s2, low2, high2 - 1)) {
+                    scramble(s1, low1 + i, high1, s2, low2, high2 - i)) {
                     return true;
                 }
             }
