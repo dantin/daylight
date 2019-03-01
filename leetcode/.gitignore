@@ -3,3 +3,4 @@ solution_c
 solution_cc
 
 *.class
+*.pyc
