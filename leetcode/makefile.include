@@ -5,25 +5,27 @@ DEVTOOLSET_PATH := /opt/rh/devtoolset-7/
 
 SOURCE_DIR := $(shell pwd)
 
-SOURCES_C    := $(shell find $(SOURCE_DIR) -name 'solution.c' -print | grep -vE '.git')
-SOURCES_JAVA := $(shell find $(SOURCE_DIR) -name 'Solution.java' -print | grep -vE '.git')
+SOURCES      := $(shell find $(SOURCE_DIR) -type f -print | grep -vE '.git')
+SOURCES_C    := $(findstring solution.c,$(SOURCES))
+SOURCES_JAVA := $(findstring Solution.java,$(SOURCES))
+SOURCES_PY3  := $(findstring solution.py,$(SOURCES))
 
 #
 # clang compiler stuff.
 #
-CC     := gcc
+CC      := gcc
 # compiler flags.
-CFLAGS := -fsanitize=address -Wall -Wshadow -g
+CFLAGS  := -fsanitize=address -Wall -Wshadow -g
 # linker flags.
 LDFLAGS := -lm -fsanitize=address
 
-BIN := $(subst .,_,$(notdir $(SOURCES_C)))
+BIN := $(subst .,_,$(notdir $(SOURCES_C) $(SOURCES_PY3)))
 BIN += $(subst .java,.class,$(notdir $(SOURCES_JAVA)))
 
 default: build
 
 build: $(BIN)
-	@echo "$(BIN) done!"
+	@echo "$(strip $(BIN)) done!"
 
 solution_c: solution.c
 	@source $(DEVTOOLSET_PATH)/enable; [[ -e $< ]] && $(CC) $(CFLAGS) $< -o $@ $(LDFLAGS) || true
@@ -31,11 +33,15 @@ solution_c: solution.c
 Solution.class: Solution.java
 	@[[ -e $< ]] && javac $< || true
 
+.PHONY: solution_py
+solution_py: solution.py
+
 .PHONY: clean
 clean:
-	@rm -rf *~ $(BIN) *.class
+	@rm -rf *~ $(BIN) *.class *.pyc
 
 .PHONY: run
 run: build
-	@[[ -e $(SOURCE_DIR)/solution_c ]] && echo -e "\nSolution in c" && ./solution_c || true
+	@[[ -e $(SOURCE_DIR)/solution_c ]] && echo -e "\nSolution in c" && $(SOURCE_DIR)/solution_c || true
 	@[[ -e $(SOURCE_DIR)/Solution.class ]] && echo -e "\nSolution in java" && java Solution || true
+	@[[ -e $(SOURCE_DIR)/solution.py ]] && echo -e "\nSolution in python" && python3.7 solution.py || true
