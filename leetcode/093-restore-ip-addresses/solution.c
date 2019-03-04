@@ -56,8 +56,8 @@ void dfs(char *s, int start, char *stack, int num, char **results, int *count)
                     *(p - 1) = '.';
                 }
             }
+            (*count)++;
         }
-        (*count)++;
     } else {
         char *p = stack + num * WIDTH;
         char *q = p;
@@ -82,7 +82,6 @@ char **restore_ip_addresses(char *s, int *return_size)
     char **results = malloc(capacity * sizeof(char *));
     char addr[16] = { '\0' };
     dfs(s, 0, addr, 0, results, &count);
-
     *return_size = count;
     return results;
 }
@@ -102,7 +101,8 @@ int main(int argc, char **argv)
         char **ip_addresses = restore_ip_addresses(s, &return_size);
         printf(" Output: ");
         print_strs(ip_addresses, return_size);
-        free_strs(ip_addresses, 100);
+        printf("\n");
+        free_strs(ip_addresses, return_size);
     }
 
     return EXIT_SUCCESS;
