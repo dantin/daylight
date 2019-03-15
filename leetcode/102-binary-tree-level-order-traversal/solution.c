@@ -26,6 +26,66 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
+struct Object {
+    int *nums;
+    int len;
+};
+
+struct TreeNode *make_tree(int *nums, int pos, int size)
+{
+    if (nums[pos] == INT_MIN) {
+        return NULL;
+    }
+
+    struct TreeNode *node = malloc(sizeof(*node));
+    node->val = nums[pos];
+
+    int left = 2 * pos + 1;
+    int right = 2 * pos + 2;
+    if (left >= size) {
+        node->left = NULL;
+    } else {
+        node->left = make_tree(nums, left, size);
+    }
+    if (right >= size) {
+        node->right = NULL;
+    } else {
+        node->right = make_tree(nums, right, size);
+    }
+
+    return node;
+}
+
+void free_tree(struct TreeNode *node)
+{
+    if (node == NULL) {
+        return;
+    }
+
+    if (node->left != NULL) {
+        free_tree(node->left);
+    }
+    if (node->right != NULL) {
+        free_tree(node->right);
+    }
+    free(node);
+}
+
+void print_tree(struct TreeNode *node)
+{
+    printf("%d ", node->val);
+    if (node->left != NULL) {
+        print_tree(node->left);
+    } else {
+        printf("# ");
+    }
+    if (node->right != NULL) {
+        print_tree(node->right);
+    } else {
+        printf("# ");
+    }
+}
+
 struct list_head {
     struct list_head *next, *prev;
 };
@@ -154,5 +214,31 @@ int **level_order(struct TreeNode *root, int **column_sizes, int *return_size)
 
 int main(int argc, char **argv)
 {
+    int nums1[] = { 3, 9, 20, INT_MIN, INT_MIN, 15, 7 }, len1 = sizeof(nums1) / sizeof(int);
+    struct Object inputs[] = {
+        { .nums = nums1, .len = len1 },
+    };
+    int i, j, k, *col_sizes, len = sizeof(inputs) / sizeof(struct Object);
+
+    for (i = 0; i < len; i++) {
+        int *nums = inputs[i].nums;
+        int size = inputs[i].len;
+
+        struct TreeNode *root = make_tree(nums, 0, size);
+        printf("\n Input: ");
+        print_tree(root);
+        printf("\n Output:\n");
+        int count;
+        int **lists = level_order(root, &col_sizes, &count);
+        for (j = 0; j < count; j++) {
+            for (k = 0; k < col_sizes[j]; k++) {
+                printf("%d ", lists[j][k]);
+            }
+            printf("\n");
+        }
+
+        free_tree(root);
+    }
+
     return EXIT_SUCCESS;
 }
