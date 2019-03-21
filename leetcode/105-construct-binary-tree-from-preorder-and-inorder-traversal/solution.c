@@ -130,7 +130,7 @@ struct TreeNode *dfs(int *preorder, int pre_low, int pre_high,
                      int *inorder, int in_low, int in_high,
                      struct hlist_head *in_heads, int size)
 {
-    if (in_low > in_high || pre_low < pre_high) {
+    if (in_low > in_high || pre_low > pre_high) {
         return NULL;
     }
     struct TreeNode *tn = malloc(sizeof(*tn));
