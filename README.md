@@ -2,9 +2,10 @@
 
 Solutions of online judgement
 
-* [POJ](http://poj.org/problemlist)
-* [AOJ](http://judge.u-aizu.ac.jp)
-* [LeetCode](https://oj.leetcode.com)
+- [POJ](http://poj.org/problemlist)
+- [AOJ](http://judge.u-aizu.ac.jp)
+- [LeetCode](https://oj.leetcode.com)
+- [Daily Coding Problems](https://www.dailycodingproblem.com/)
 
 ### C Environment
 
@@ -34,4 +35,3 @@ $ rpm -ql devtoolset-7libasan-devel
 # see runtime info
 $ rpm -qf /opt/rh/devtoolset-7/enable
 ```
-
