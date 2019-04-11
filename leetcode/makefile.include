@@ -44,4 +44,4 @@ clean:
 run: build
 	@[[ -e $(SOURCE_DIR)/solution_c ]] && echo -e "\nSolution in c" && $(SOURCE_DIR)/solution_c || true
 	@[[ -e $(SOURCE_DIR)/Solution.class ]] && echo -e "\nSolution in java" && java Solution || true
-	@[[ -e $(SOURCE_DIR)/solution.py ]] && echo -e "\nSolution in python" && python3.7 solution.py || true
+	@[[ -e $(SOURCE_DIR)/solution.py ]] && echo -e "\nSolution in python" && python solution.py || true
