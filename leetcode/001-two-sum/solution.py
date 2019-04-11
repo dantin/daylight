@@ -13,19 +13,19 @@ class Solution:
 
     def twoSum2(self, nums: list, target: int) -> list:
         idx, value = 0, 1
-        elems = [(i, num) for i, num in enumerate(nums)]
-        elems.sort(key=lambda x: x[value])
+        objs = [(i, num) for i, num in enumerate(nums)]
+        objs.sort(key=lambda x: x[value])
         low, high = 0, len(nums) - 1
         while low < high:
-            diff = target - elems[low][value]
-            if diff > elems[high][value]:
-                while low + 1 < len(nums) and elems[low][value] == elems[low + 1][value]: low += 1
+            diff = target - objs[low][value]
+            if diff > objs[high][value]:
+                while low + 1 < len(nums) and objs[low][value] == objs[low + 1][value]: low += 1
                 low += 1
-            elif diff < elems[high][value]:
-                while high - 1 >= 0 and elems[high][value] == elems[high - 1][value]: high -= 1
+            elif diff < objs[high][value]:
+                while high - 1 >= 0 and objs[high][value] == objs[high - 1][value]: high -= 1
                 high -= 1
             else:
-                return [elems[low][idx], elems[high][idx]]
+                return [objs[low][idx], objs[high][idx]]
         return []
 
 
