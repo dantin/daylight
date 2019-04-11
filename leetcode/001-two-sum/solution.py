@@ -19,10 +19,10 @@ class Solution:
         while low < high:
             diff = target - objs[low][value]
             if diff > objs[high][value]:
-                while low + 1 < len(nums) and objs[low][value] == objs[low + 1][value]: low += 1
+                while low + 1 < high and objs[low][value] == objs[low + 1][value]: low += 1
                 low += 1
             elif diff < objs[high][value]:
-                while high - 1 >= 0 and objs[high][value] == objs[high - 1][value]: high -= 1
+                while high - 1 >= low and objs[high][value] == objs[high - 1][value]: high -= 1
                 high -= 1
             else:
                 return [objs[low][idx], objs[high][idx]]
