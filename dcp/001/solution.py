@@ -12,10 +12,10 @@ def two_sum(nums, target):
     while low < high:
         total = nums[low] + nums[high]
         if total < target:
-            while (low + 1 < len(nums)) and (nums[low] == nums[low + 1]): low += 1
+            while low + 1 < high and nums[low] == nums[low + 1]: low += 1
             low += 1
         elif total > target:
-            while (high - 1 >= 0 and nums[high - 1] == nums[high]): high -= 1
+            while high - 1 >= low and nums[high - 1] == nums[high]: high -= 1
             high -= 1
         else:
             return True
