@@ -33,7 +33,7 @@ void print_strs(char **strs, int size)
 #define list_last_entry(ptr, type, field) list_entry((ptr)->prev, type, field)
 
 #define list_for_each(p, head) \
-    for (p = (head)->next; p != (head); )
+    for (p = (head)->next; p != (head); p = p->next )
 
 #define list_for_each_safe(pos, n, head) \
     for (p = (head)->next, n = p->next; p != (head); p = n, n = p->next)
