@@ -7,6 +7,7 @@ SOURCE_DIR := $(shell pwd)
 
 SOURCES      := $(shell find $(SOURCE_DIR) -type f -print | grep -vE '.git')
 SOURCES_C    := $(findstring solution.c,$(SOURCES))
+SOURCES_CPP  := $(findstring solution.cc,$(SOURCES))
 SOURCES_JAVA := $(findstring Solution.java,$(SOURCES))
 SOURCES_PY3  := $(findstring solution.py,$(SOURCES))
 
@@ -19,7 +20,11 @@ CFLAGS  := -fsanitize=address -Wall -Wshadow -g
 # linker flags.
 LDFLAGS := -lm -fsanitize=address
 
-BIN := $(subst .,_,$(notdir $(SOURCES_C) $(SOURCES_PY3)))
+CPP     := g++
+CPP_CFLAGS := -Wall -Wshadow -g -std=c++11
+CPP_LDFLAGS := -lm
+
+BIN := $(subst .,_,$(notdir $(SOURCES_C) $(SOURCES_CPP) $(SOURCES_PY3)))
 BIN += $(subst .java,.class,$(notdir $(SOURCES_JAVA)))
 
 default: build
@@ -29,6 +34,9 @@ build: $(BIN)
 
 solution_c: solution.c
 	@source $(DEVTOOLSET_PATH)/enable; [[ -e $< ]] && $(CC) $(CFLAGS) $< -o $@ $(LDFLAGS) || true
+
+solution_cc: solution.cc
+	@[[ -e $< ]] && $(CPP) $(CPP_CFLAGS) $< -o $@ $(CPP_LDFLAGS) || true
 
 Solution.class: Solution.java
 	@[[ -e $< ]] && javac $< || true
@@ -43,5 +51,6 @@ clean:
 .PHONY: run
 run: build
 	@[[ -e $(SOURCE_DIR)/solution_c ]] && echo -e "\nSolution in c" && $(SOURCE_DIR)/solution_c || true
+	@[[ -e $(SOURCE_DIR)/solution_cc ]] && echo -e "\nSolution in c++" && $(SOURCE_DIR)/solution_cc || true
 	@[[ -e $(SOURCE_DIR)/Solution.class ]] && echo -e "\nSolution in java" && java Solution || true
 	@[[ -e $(SOURCE_DIR)/solution.py ]] && echo -e "\nSolution in python" && python solution.py || true
