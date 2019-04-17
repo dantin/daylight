@@ -51,4 +51,3 @@ if __name__ == '__main__':
         nums.add(i)
     for i in range(3):
         print('nums[{}] = {}'.format(i, nums.get(i)))
-
