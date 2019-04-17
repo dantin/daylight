@@ -2,30 +2,33 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct Object {
+    char *lhs;
+    char *rhs;
+};
+
 struct ListNode {
     int val;
     struct ListNode *next;
 };
 
-void print_list(struct ListNode *list)
+void print_num(struct ListNode *node)
 {
-    struct ListNode *p = list;
-
-    while (p != NULL) {
-        if (p != list) {
-            printf(" -> %d", p->val);
-        } else {
-            printf("%d", p->val);
-        }
-        p = p->next;
+    if (node == NULL) {
+        return;
     }
+    printf("(%d", node->val);
+    while ((node = node->next) != NULL) {
+        printf(" -> %d", node->val);
+    }
+    printf(")");
 }
 
-struct ListNode *make_list(const char *digits)
+struct ListNode *make_num(const char *digits)
 {
-    struct ListNode dummy, *prev;
     int len = strlen(digits);
     const char *c = digits + len - 1;
+    struct ListNode dummy, *prev;
 
     dummy.next = NULL;
     prev = &dummy;
@@ -40,17 +43,13 @@ struct ListNode *make_list(const char *digits)
     return dummy.next;
 }
 
-void display(struct ListNode *list)
-{
-    int sum = 0, factor = 1;
-
-    while (list != NULL) {
-        sum += list->val * factor;
-        factor *= 10;
-        list = list->next;
+void free_num(struct ListNode *node) {
+    struct ListNode *n;
+    while (node != NULL) {
+        n = node;
+        node = node->next;
+        free(n);
     }
-
-    printf("%d", sum);
 }
 
 struct ListNode* add_two_numbers(struct ListNode* l1, struct ListNode* l2)
@@ -87,18 +86,31 @@ struct ListNode* add_two_numbers(struct ListNode* l1, struct ListNode* l2)
 
 int main(int argc, char **argv)
 {
-    char *nums[] = {"342", "465"};
+    struct Object inputs[] = {
+        { .lhs = "342", .rhs = "465" },
+    };
+    int i, len = sizeof(inputs) / sizeof(struct Object);
 
-    struct ListNode *l1 = make_list(nums[0]);
-    struct ListNode *l2 = make_list(nums[1]);
-    struct ListNode *res = add_two_numbers(l1, l2);
+    for (i = 0; i < len; i++) {
+        struct ListNode *lhs = make_num(inputs[i].lhs);
+        struct ListNode *rhs = make_num(inputs[i].rhs);
+        struct ListNode *sum = add_two_numbers(lhs, rhs);
+        int n1 = atoi(inputs[i].lhs);
+        int n2 = atoi(inputs[i].rhs);
 
-    printf(" Input: ("); print_list(l1);
-    printf(") + ("); print_list(l2); printf(")\n");
-    printf(" Output: "); print_list(res); putchar('\n');
+        printf("\n Input: ");
+        print_num(lhs);
+        printf(" + ");
+        print_num(rhs);
+        printf("\n Output: ");
+        print_num(sum);
 
-    printf(" Explanation: "); display(l1); printf(" + ");
-    display(l2); printf(" = "); display(res); putchar('\n');
+        printf("\n Explanation: %d + %d = %d\n", n1, n2, n1 + n2);
+
+        free_num(lhs);
+        free_num(rhs);
+        free_num(sum);
+    }
 
     return EXIT_SUCCESS;
 }
