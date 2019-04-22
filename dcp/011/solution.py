@@ -11,7 +11,6 @@ class Trie():
 
     def __init__(self):
         self.root = TrieNode()
-        self.word_list = []
 
     def build(self, terms):
         for term in terms:
