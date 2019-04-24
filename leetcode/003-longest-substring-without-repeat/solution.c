@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static int length_of_longest_substring(const unsigned char *s)
+int length_of_longest_substring(const unsigned char *s)
 {
     int offset[128];
     int max_len = 0;
