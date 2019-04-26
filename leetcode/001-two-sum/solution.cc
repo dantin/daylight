@@ -2,6 +2,7 @@
 #include <map>
 #include <iostream>
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
@@ -80,13 +81,12 @@ public:
 
 void print_nums(vector<int> nums)
 {
-    if (nums.size() < 1) {
-        cout << "[]";
-        return;
-    }
-    cout << "[" << nums[0];
-    for (size_t i = 1; i < nums.size(); ++i) {
-        cout << ", " << nums[i];
+    string s = "";
+
+    cout << "[";
+    for (size_t i = 0; i < nums.size(); ++i) {
+        cout << s << nums[i];
+        s = ", ";
     }
     cout << "]";
 }

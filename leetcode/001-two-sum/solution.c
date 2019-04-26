@@ -14,15 +14,13 @@ struct object {
 
 void print_nums(int *nums, int size)
 {
-    if (size < 1) {
-        printf("[]");
-        return;
-    }
     int i;
+    char *s = "";
 
-    printf("[%d", nums[0]);
-    for (i = 1; i < size; i++) {
-        printf(", %d", nums[i]);
+    printf("[");
+    for (i = 0; i < size; i++) {
+        printf("%s%d", s, nums[i]);
+        s = ", ";
     }
     printf("]");
 }
