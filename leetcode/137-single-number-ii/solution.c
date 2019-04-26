@@ -25,11 +25,11 @@ int single_number(int *nums, int nums_size)
     for (i = 0; i < 32; i++) {
         count[i] = 0;
         for (j = 0; j < nums_size; j++) {
-            if ((1 << i) & nums[j]) {
+            if ((1U << i) & nums[j]) {
                 count[i]++;
             }
         }
-        mask |= (count[i] % 3) << i;
+        mask |= ((unsigned) (count[i] % 3)) << i;
     }
 
     return mask;
