@@ -27,4 +27,3 @@ if __name__ == '__main__':
         solver = Solution()
         rooms = solver.crack(intervals)
         print(' Output:', rooms)
-
