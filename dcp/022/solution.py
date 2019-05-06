@@ -32,7 +32,8 @@ class Solution():
 
 if __name__ == '__main__':
     inputs = [
-        dict(s='catsanddog', word_dict=['cat', 'cats', 'and', 'sand', 'dog']),
+        dict(s='thequickbrownfox', word_dict=['quick', 'brown', 'the', 'fox']),
+        dict(s='bedbathandbeyond', word_dict=['bed', 'bath', 'bedbath', 'and', 'beyond']),
     ]
     for i in inputs:
         s, word_dict = i['s'], i['word_dict']
