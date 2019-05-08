@@ -34,4 +34,3 @@ if __name__ == '__main__':
         print(' Input: \'{}\''.format(s))
         solver = Solution()
         print(' Output:', solver.crack(s))
-
