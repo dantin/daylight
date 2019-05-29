@@ -47,7 +47,7 @@ int a2i(char *s)
 int eval_rpn(char **tokens, int tokens_size)
 {
     int i, lhs, rhs;
-    int stack[500], top = 0;
+    int stack[5000], top = 0;
 
     for (i = 0; i < tokens_size; i++) {
         switch (tokens[i][0]) {
