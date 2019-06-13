@@ -33,4 +33,3 @@ if __name__ == '__main__':
         print(' Input: {}'.format(nums))
         can = can_partition(nums)
         print(' Output: {}'.format(can))
-
