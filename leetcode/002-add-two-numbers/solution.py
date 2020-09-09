@@ -7,8 +7,26 @@ class ListNode:
 
 
 class Solution:
-    def addTwoNumbers(self, li: ListNode, l2: ListNode) -> ListNode:
-        return []
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        head, tail = None, None
+        s = 0
+        while (l1 is not None) or (l2 is not None) or (s != 0):
+            if l1 is not None:
+                s += l1.val
+                l1 = l1.next
+            if l2 is not None:
+                s += l2.val
+                l2 = l2.next
+            curr_node = ListNode(s % 10)
+            s //= 10
+            if head is None:
+                head = curr_node
+                tail = curr_node
+            else:
+                tail.next = curr_node
+                tail = curr_node
+
+        return head 
 
 
 def make_num(num:str) -> ListNode:
@@ -33,6 +51,13 @@ def print_nums(node: ListNode):
 
 
 if __name__ == '__main__':
-    num1 = make_num('360')
+    num1 = make_num('342')
+    num2 = make_num('465')
+    s = Solution()
+
+    res = s.addTwoNumbers(num1, num2)
+
     print_nums(num1)
+    print_nums(num2)
+    print_nums(res)
 
